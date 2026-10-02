@@ -1,0 +1,9 @@
+[project]
+name = "new-supply-chain-finder"
+version = "0.1.0"
+description = "구매 유형과 품목명으로 공급 업체를 추천하는 Streamlit 앱"
+requires-python = ">=3.11"
+
+[tool.pytest.ini_options]
+pythonpath = ["."]
+testpaths = ["tests"]

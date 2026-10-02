@@ -1,0 +1,25 @@
+{
+  "categories": [
+    { "id": "refractory", "name": "내화물", "synonyms": ["내화물", "내화벽돌", "내화재", "캐스타블", "마그네시아카본", "MgO-C", "refractory"] },
+    { "id": "reducer", "name": "감속기", "synonyms": ["감속기", "기어박스", "기어드모터", "reducer", "gearbox"] },
+    { "id": "dust-collector", "name": "집진기·필터백", "synonyms": ["집진기", "집진설비", "필터백", "백필터", "여과포", "dust collector", "filter bag"] },
+    { "id": "bearing", "name": "산업용 베어링", "synonyms": ["베어링", "롤러베어링", "볼베어링", "bearing"] },
+    { "id": "lubricant", "name": "산업용 윤활유", "synonyms": ["윤활유", "그리스", "작동유", "유압유", "lubricant", "grease"] },
+    { "id": "valve", "name": "산업용 밸브", "synonyms": ["밸브", "게이트밸브", "볼밸브", "버터플라이밸브", "valve"] },
+    { "id": "crane", "name": "산업용 크레인", "synonyms": ["크레인", "호이스트", "천장크레인", "crane", "hoist"] },
+    { "id": "iron-ore", "name": "철광석", "synonyms": ["철광석", "펠릿", "소결광", "iron ore"] },
+    { "id": "maintenance", "name": "설비 정비·수리", "synonyms": ["정비", "수리", "유지보수", "오버홀", "보수", "maintenance", "repair"] },
+    { "id": "inspection", "name": "설비 점검·진단 용역", "synonyms": ["점검", "진단", "비파괴검사", "안전진단", "inspection"] }
+  ],
+  "ambiguousTerms": {
+    "부품": "bearing",
+    "자재": "refractory",
+    "원료": "iron-ore",
+    "설비": "reducer",
+    "장비": "reducer",
+    "기계": "reducer",
+    "소모품": "lubricant",
+    "용역": "inspection",
+    "서비스": "inspection"
+  }
+}
