@@ -31,7 +31,7 @@ logger = logging.getLogger(__name__)
 st.set_page_config(page_title=APP_TITLE, page_icon="🏭", layout="wide")
 
 NUMERIC_COLUMNS = {"업력(년)", "지난해 매출액(억원)", "해당품목 매출비율"}
-SEARCHING_MESSAGE = "공급 업체를 찾는 중입니다... (AI 웹 검색은 1~2분 정도 걸릴 수 있습니다)"
+SEARCHING_MESSAGE = "공급 업체를 찾는 중입니다... (AI가 웹을 검색하므로 보통 1분 남짓 걸립니다)"
 GENERIC_ERROR = "추천 결과를 불러오지 못했습니다. 잠시 후 다시 시도해주세요."
 
 
@@ -63,7 +63,7 @@ def friendly_error(error: Exception) -> str:
     if isinstance(error, openai.RateLimitError):
         return "OpenAI 요청 한도를 초과했거나 크레딧이 부족합니다. 잠시 후 다시 시도하거나 결제 정보를 확인해주세요."
     if isinstance(error, openai.APITimeoutError):
-        return "응답 시간이 너무 오래 걸렸습니다. 다시 시도해주세요."
+        return "응답이 2분 30초 안에 오지 않았습니다. 잠시 후 다시 시도해주세요."
     if isinstance(error, openai.APIConnectionError):
         return "OpenAI 서버에 연결할 수 없습니다. 네트워크 상태를 확인한 뒤 다시 시도해주세요."
     return GENERIC_ERROR

@@ -16,7 +16,13 @@ from .mock import fx_as_of, krw_per_unit
 
 DEFAULT_MODEL = "gpt-6-astra"
 AI_SOURCE_LABEL = "AI 웹 검색"
-REQUEST_TIMEOUT_SECONDS = 170
+# 실측(2026-10-02, 품목 3개): 기본 설정 134~151초 → 아래 설정 72~74초, 후보 수·품질은 비슷했다.
+# 시간 대부분은 모델 추론이 아니라 웹 검색 횟수와 검색 결과 분량에서 나온다.
+REASONING_EFFORT = "low"
+SEARCH_CONTEXT_SIZE = "low"  # 검색 1회당 가져오는 본문 분량
+MAX_TOOL_CALLS = 8  # 웹 검색 횟수 상한 (가끔 길어지는 경우 방지)
+# 재시도 없이 한 번만 기다린다. 재시도를 켜면 시간 초과 시 처음부터 다시 조사해 대기가 두 배가 된다.
+REQUEST_TIMEOUT_SECONDS = 150
 
 
 class Revenue(BaseModel):
@@ -160,7 +166,7 @@ class OpenAISupplierProvider:
         if self._client is None:
             from openai import OpenAI
 
-            self._client = OpenAI(api_key=api_key, timeout=REQUEST_TIMEOUT_SECONDS, max_retries=1)
+            self._client = OpenAI(api_key=api_key, timeout=REQUEST_TIMEOUT_SECONDS, max_retries=0)
         return self._client
 
     def search(self, purchase_type: str, item_name: str) -> ProviderResult:
@@ -175,9 +181,12 @@ class OpenAISupplierProvider:
             tools=[
                 {
                     "type": "web_search",
+                    "search_context_size": SEARCH_CONTEXT_SIZE,
                     "user_location": {"type": "approximate", "country": "KR", "timezone": "Asia/Seoul"},
                 }
             ],
+            max_tool_calls=MAX_TOOL_CALLS,
+            reasoning={"effort": REASONING_EFFORT},
             text_format=AiResult,
         )
 
